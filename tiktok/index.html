@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TikTok sign-in code</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 640px; margin: 40px auto; padding: 0 16px; color: #111; background: #fff }
+  code { display: block; padding: 12px; background: #f2f2f2; border-radius: 6px; word-break: break-all; font-size: 15px }
+  button { margin-top: 8px; padding: 8px 14px; font: inherit; cursor: pointer }
+</style>
+</head>
+<body>
+<!-- Published at https://roi492.github.io/tiktok/ (repo Roi492/Roi492.github.io): the redirect for src/tiktok_auth.py -->
+<h1>Curiosity Paradox Uploader: TikTok sign-in</h1>
+<p id="msg">Copy this code and paste it into the terminal running <b>python -m src.tiktok_auth</b>. It works once and expires in a few minutes.</p>
+<p>Code:</p>
+<code id="code"></code>
+<button id="copy" type="button">Copy code</button>
+<p>State (must match the one the terminal printed):</p>
+<code id="state"></code>
+<p><a href="/privacy.html">Privacy policy</a> · <a href="/terms.html">Terms of service</a></p>
+<script>
+  const q = new URLSearchParams(location.search);
+  document.getElementById("code").textContent = q.get("code") || "(no code: sign-in was cancelled or failed)";
+  document.getElementById("state").textContent = q.get("state") || "";
+  if (q.get("error")) document.getElementById("msg").textContent = "TikTok said: " + q.get("error") + " " + (q.get("error_description") || "");
+  document.getElementById("copy").onclick = () => navigator.clipboard.writeText(q.get("code") || "");
+</script>
+</body>
+</html>
